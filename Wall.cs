@@ -3,10 +3,19 @@
 
 class Wall : GameObject
 {
-    public Wall()
+    //public Wall()
+    //{
+    //    shape = '*';
+    //}
+
+    public Wall(int newX = 0, int newY = 0)
     {
-        shape = 'P';
+        shape = '*';
+
+        x = newX;
+        y = newY;
     }
+
 
     ~Wall()
     {
@@ -25,7 +34,7 @@ class Wall : GameObject
 
     public override void Render()
     {
-
+        base.Render();
     }
 }
 

@@ -5,7 +5,15 @@ class Goal : GameObject
 {
     public Goal()
     {
-        shape = 'P';
+        shape = 'G';
+    }
+
+    public Goal(int newX, int newY)
+    {
+        shape = 'G';
+
+        x = newX;
+        y = newY;
     }
 
     ~Goal()
@@ -25,7 +33,7 @@ class Goal : GameObject
 
     public override void Render()
     {
-
+        base.Render();
     }
 }
 

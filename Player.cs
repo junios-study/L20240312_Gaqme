@@ -8,6 +8,14 @@ class Player : GameObject
         shape = 'P';
     }
 
+    public Player(int newX, int newY)
+    {
+        shape = 'P';
+
+        x = newX;
+        y = newY;
+    }
+
     ~Player()
     {
 
@@ -19,11 +27,6 @@ class Player : GameObject
     }
 
     public override void Update()
-    {
-
-    }
-
-    public override void Render()
     {
 
     }

@@ -5,7 +5,15 @@ class Monster : GameObject
 {
     public Monster()
     {
-        shape = 'P';
+        shape = 'M';
+    }
+
+    public Monster(int newX, int newY)
+    {
+        shape = 'M';
+
+        x = newX;
+        y = newY;
     }
 
     ~Monster()
@@ -25,7 +33,7 @@ class Monster : GameObject
 
     public override void Render()
     {
-
+        base.Render();
     }
 }
 
