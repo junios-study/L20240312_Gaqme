@@ -19,6 +19,7 @@ class Engine
 
     public void Init()
     {
+        Input.Init();
     }
 
     public void LoadScene(string sceneName)
@@ -40,6 +41,7 @@ class Engine
                 if (map[y][x] == '*')
                 {
                     Instantiate(new Wall(x, y));
+                    Instantiate(new Floor(x, y));
                     //newGameObject.x = x;
                     //newGameObject.y = y;
                 }
@@ -50,17 +52,25 @@ class Engine
                 else if (map[y][x] == 'P')
                 {
                     Instantiate(new Player(x, y));
+                    Instantiate(new Floor(x, y));
+
                 }
                 else if (map[y][x] == 'G')
                 {
                     Instantiate(new Goal(x, y));
+                    Instantiate(new Floor(x, y));
+
                 }
                 else if (map[y][x] == 'M')
                 {
                     Instantiate(new Monster(x, y));
+                    Instantiate(new Floor(x, y));
+
                 }
             }
         }
+
+        //gameObjects.Sort()
     }
 
     public void Run()
@@ -97,7 +107,10 @@ class Engine
 
     protected void Update()
     {
-
+        foreach (GameObject gameObject in gameObjects)
+        {
+            gameObject.Update();
+        }
     }
 
     protected void Render()
