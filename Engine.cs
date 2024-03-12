@@ -15,21 +15,23 @@ class Engine
 
     public List<GameObject> gameObjects;
     public bool isRunning;
+    
 
     public void Init()
     {
-        string[] map = new string[10];
-        //file로 읽어 온다.
-        map[0] = "**********";
-        map[1] = "*P       *";
-        map[2] = "*        *";
-        map[3] = "*        *";
-        map[4] = "*   M    *";
-        map[5] = "*        *";
-        map[6] = "*        *";
-        map[7] = "*        *";
-        map[8] = "*       G*";
-        map[9] = "**********";
+    }
+
+    public void LoadScene(string sceneName)
+    {
+#if DEBUG
+        string Dir = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+        string[] map = File.ReadAllLines(Dir + "/data/" + sceneName);
+#else
+        string Dir = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+        string[] map = File.ReadAllLines(Dir + "/data/" + sceneName);
+#endif
+
+        //string[] map = File.ReadAllLines("./data/"+sceneName);
 
         for (int y = 0; y < map.Length; ++y)
         {
@@ -59,15 +61,13 @@ class Engine
                 }
             }
         }
-
-        //Load();
     }
 
     public void Run()
     {
         while (isRunning)
         {
-            Input();
+            ProcessInput();
             Update();
             Render();
         } //frame
@@ -90,9 +90,9 @@ class Engine
         return newGameObject;
     }
 
-    protected void Input()
+    protected void ProcessInput()
     {
-        Console.ReadKey();
+        Input.keyInfo = Console.ReadKey();
     }
 
     protected void Update()
