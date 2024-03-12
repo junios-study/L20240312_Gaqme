@@ -44,6 +44,11 @@ class Player : GameObject
         {
             y++;
         }
+        if(Input.GetButton("Quit"))
+        {
+            //singleton pattern
+            //engine.Stop();
+        }
 
         x = Math.Clamp(x, 0, 80);
         y = Math.Clamp(y, 0, 80);
