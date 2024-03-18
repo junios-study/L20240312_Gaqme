@@ -58,40 +58,40 @@ class Engine
             {
                 if (map[y][x] == '*')
                 {
-                    Instantiate(new Wall(x, y));
-                    Instantiate(new Floor(x, y));
+                    //Instantiate(new Wall(x, y));
+                    //Instantiate(new Floor(x, y));
                     //newGameObject.x = x;
                     //newGameObject.y = y;
                 }
                 else if (map[y][x] == ' ')
                 {
-                    Instantiate(new Floor(x, y));
+                    //Instantiate(new Floor(x, y));
                 }
                 else if (map[y][x] == 'P')
                 {
                     GameObject newGameObject = Instantiate(new GameObject());
+                    newGameObject.AddComponent<SpriteRenderer>();
 
-
-                    Instantiate(new Player(x, y));
-                    Instantiate(new Floor(x, y));
+                    //Instantiate(new Player(x, y));
+                    //Instantiate(new Floor(x, y));
 
                 }
                 else if (map[y][x] == 'G')
                 {
-                    Instantiate(new Goal(x, y));
-                    Instantiate(new Floor(x, y));
+                    //Instantiate(new Goal(x, y));
+                    //Instantiate(new Floor(x, y));
 
                 }
                 else if (map[y][x] == 'M')
                 {
-                    Instantiate(new Monster(x, y));
-                    Instantiate(new Floor(x, y));
+                    //Instantiate(new Monster(x, y));
+                    //Instantiate(new Floor(x, y));
 
                 }
             }
         }
 
-        gameObjects.Sort();
+        //gameObjects.Sort();
 
         //int WallCount = 0;
         //foreach (GameObject go in gameObjects)
@@ -139,10 +139,10 @@ class Engine
 
     protected void Update()
     {
-        foreach (GameObject gameObject in gameObjects)
-        {
-            gameObject.Update();
-        }
+        //foreach (GameObject gameObject in gameObjects)
+        //{
+        //    gameObject.Update();
+        //}
     }
 
     protected void Render()
@@ -152,10 +152,10 @@ class Engine
         //    gameObjects[i].Render();
         //}
         Console.Clear();
-        foreach(GameObject gameObject in gameObjects) 
-        {
-            gameObject.Render();
-        }
+        //foreach(GameObject gameObject in gameObjects) 
+        //{
+        //    gameObject.Render();
+        //}
     }
 
 }
