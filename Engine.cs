@@ -66,6 +66,7 @@ class Engine
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = '*';
+
                 }
                 else if (map[y][x] == ' ')
                 {
@@ -73,8 +74,9 @@ class Engine
                     newGameObject.name = "Floor";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
-                    SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
-                    renderer.Shape = ' ';
+                    //SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    //renderer.Shape = ' ';
+
                 }
                 else if (map[y][x] == 'P')
                 {
@@ -93,6 +95,7 @@ class Engine
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = 'G';
+
                 }
                 else if (map[y][x] == 'M')
                 {
