@@ -6,7 +6,7 @@ class Floor : GameObject
     public Floor()
     {
         shape = ' ';
-        layerOrder = 10;
+        renderOrder = 10;
     }
 
     public Floor(int newX, int newY)
@@ -15,7 +15,7 @@ class Floor : GameObject
 
         x = newX;
         y = newY;
-        layerOrder = 10;
+        renderOrder = 10;
     }
 
     ~Floor()

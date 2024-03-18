@@ -71,6 +71,17 @@ class Engine
         }
 
         gameObjects.Sort();
+
+        //int WallCount = 0;
+        //foreach (GameObject go in gameObjects)
+        //{
+        //    //reflection
+        //    if (go.GetType() == typeof(Player))
+        //    {
+        //        WallCount++;
+        //    }
+        //}
+        //Console.WriteLine(WallCount);
     }
 
     public void Run()

@@ -7,14 +7,14 @@
     {
         x = 0;
         y = 0;
-        layerOrder = 0;
+        renderOrder = 0;
     }
 
     public GameObject(int newX, int newY)
     {
         x = newX;
         y = newY;
-        layerOrder = 0;
+        renderOrder = 0;
     }
 
     ~GameObject()
@@ -45,11 +45,11 @@
             return 1;
         }
 
-        if (layerOrder > other.layerOrder)
+        if (renderOrder > other.renderOrder)
         {
             return 1;
         }
-        else if (layerOrder == other.layerOrder)
+        else if (renderOrder == other.renderOrder)
         {
             return 0;
         }
@@ -61,7 +61,7 @@
 
     public char shape;
 
-    protected int layerOrder;
+    protected int renderOrder;
 
 }
 

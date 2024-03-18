@@ -14,7 +14,7 @@ class Wall : GameObject
 
         x = newX;
         y = newY;
-        layerOrder = 100;
+        renderOrder = 100;
     }
 
 
