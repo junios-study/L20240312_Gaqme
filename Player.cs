@@ -6,6 +6,7 @@ class Player : GameObject
     public Player()
     {
         shape = 'P';
+        layerOrder = 1000;
     }
 
     public Player(int newX, int newY)
@@ -14,6 +15,7 @@ class Player : GameObject
 
         x = newX;
         y = newY;
+        layerOrder = 1000;
     }
 
     ~Player()

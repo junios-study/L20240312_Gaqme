@@ -6,6 +6,7 @@ class Goal : GameObject
     public Goal()
     {
         shape = 'G';
+        layerOrder = 100;
     }
 
     public Goal(int newX, int newY)
@@ -14,6 +15,7 @@ class Goal : GameObject
 
         x = newX;
         y = newY;
+        layerOrder = 100;
     }
 
     ~Goal()

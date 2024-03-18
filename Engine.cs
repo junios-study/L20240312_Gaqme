@@ -70,7 +70,7 @@ class Engine
             }
         }
 
-        //gameObjects.Sort()
+        gameObjects.Sort();
     }
 
     public void Run()

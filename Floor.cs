@@ -6,6 +6,7 @@ class Floor : GameObject
     public Floor()
     {
         shape = ' ';
+        layerOrder = 10;
     }
 
     public Floor(int newX, int newY)
@@ -14,6 +15,7 @@ class Floor : GameObject
 
         x = newX;
         y = newY;
+        layerOrder = 10;
     }
 
     ~Floor()
@@ -33,7 +35,7 @@ class Floor : GameObject
 
     public override void Render()
     {
-        //base.Render();
+        base.Render();
     }
 }
 

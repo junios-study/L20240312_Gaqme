@@ -6,6 +6,8 @@ class Monster : GameObject
     public Monster()
     {
         shape = 'M';
+
+        layerOrder = 1000 + 1; 
     }
 
     public Monster(int newX, int newY)
@@ -14,6 +16,8 @@ class Monster : GameObject
 
         x = newX;
         y = newY;
+
+        layerOrder = 1000 + 1;
     }
 
     ~Monster()
