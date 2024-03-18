@@ -69,6 +69,9 @@ class Engine
                 }
                 else if (map[y][x] == 'P')
                 {
+                    GameObject newGameObject = Instantiate(new GameObject());
+
+
                     Instantiate(new Player(x, y));
                     Instantiate(new Floor(x, y));
 

@@ -1,67 +1,62 @@
-﻿class GameObject : IComparable<GameObject>
+﻿class GameObject
 {
-    public int x;
-    public int y;
+    public Transform transform;
+
+    public List<Component> components;
+
+    public string name;
+
 
     public GameObject()
     {
-        x = 0;
-        y = 0;
-        renderOrder = 0;
+        name = "";
+        transform = new Transform();
+        components = new List<Component>();
+
+        components.Add(transform);
     }
 
-    public GameObject(int newX, int newY)
+    public T? GetComponent<T>() where T : Component
     {
-        x = newX;
-        y = newY;
-        renderOrder = 0;
-    }
-
-    ~GameObject()
-    {
-
-    }
-
-    public virtual void Start()
-    {
-
-    }
-
-    public virtual void Update()
-    {
-
-    }
-
-    public virtual void Render()
-    {
-        Console.SetCursorPosition(x, y);
-        Console.Write(shape);
-    }
-
-    public int CompareTo(GameObject? other)
-    {
-        if (other == null)
+        int findIndex = -1;
+        for (int i = 0; i < components.Count; ++i)
         {
-            return 1;
+            if (components[i] is T)
+            {
+                findIndex = i;
+                break;
+            }
         }
 
-        if (renderOrder > other.renderOrder)
+        if (findIndex > 0)
         {
-            return 1;
-        }
-        else if (renderOrder == other.renderOrder)
-        {
-            return 0;
+            return (T)components[findIndex];
         }
         else
         {
-            return -1;
+            return null;
         }
     }
 
-    public char shape;
+    public void AddComponent<T>() where T : Component, new()
+    {
+        T newT = new T();
+        newT.gameObject = this;
+        newT.transform = transform;
+        components.Add(newT);
+    }
 
-    protected int renderOrder;
+    //public void RemoveComponent<T>() where T : Component
+    //{
+    //    for (int i = 0; i < components.Count; ++i)
+    //    {
+    //        if (components[i] is T)
+    //        {
+    //            components.RemoveAt(i);
+    //            break;
+    //        }
+    //    }
+    //}
 
 }
 
