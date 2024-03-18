@@ -58,35 +58,48 @@ class Engine
             {
                 if (map[y][x] == '*')
                 {
-                    //Instantiate(new Wall(x, y));
-                    //Instantiate(new Floor(x, y));
-                    //newGameObject.x = x;
-                    //newGameObject.y = y;
+                    GameObject newGameObject = Instantiate(new GameObject());
+                    newGameObject.name = "Wall";
+                    newGameObject.transform.x = x;
+                    newGameObject.transform.y = y;
+                    newGameObject.AddComponent<SpriteRenderer>();
+                    newGameObject.GetComponent<SpriteRenderer>().Shape = '*';
                 }
                 else if (map[y][x] == ' ')
                 {
-                    //Instantiate(new Floor(x, y));
+                    GameObject newGameObject = Instantiate(new GameObject());
+                    newGameObject.name = "Floor";
+                    newGameObject.transform.x = x;
+                    newGameObject.transform.y = y;
+                    newGameObject.AddComponent<SpriteRenderer>();
+                    newGameObject.GetComponent<SpriteRenderer>().Shape = ' ';
                 }
                 else if (map[y][x] == 'P')
                 {
                     GameObject newGameObject = Instantiate(new GameObject());
+                    newGameObject.name = "Player";
+                    newGameObject.transform.x = x;
+                    newGameObject.transform.y = y;
                     newGameObject.AddComponent<SpriteRenderer>();
-
-                    //Instantiate(new Player(x, y));
-                    //Instantiate(new Floor(x, y));
-
+                    newGameObject.GetComponent<SpriteRenderer>().Shape = 'P';
                 }
                 else if (map[y][x] == 'G')
                 {
-                    //Instantiate(new Goal(x, y));
-                    //Instantiate(new Floor(x, y));
-
+                    GameObject newGameObject = Instantiate(new GameObject());
+                    newGameObject.name = "Goal";
+                    newGameObject.transform.x = x;
+                    newGameObject.transform.y = y;
+                    newGameObject.AddComponent<SpriteRenderer>();
+                    newGameObject.GetComponent<SpriteRenderer>().Shape = 'G';
                 }
                 else if (map[y][x] == 'M')
                 {
-                    //Instantiate(new Monster(x, y));
-                    //Instantiate(new Floor(x, y));
-
+                    GameObject newGameObject = Instantiate(new GameObject());
+                    newGameObject.name = "Monster";
+                    newGameObject.transform.x = x;
+                    newGameObject.transform.y = y;
+                    newGameObject.AddComponent<SpriteRenderer>();
+                    newGameObject.GetComponent<SpriteRenderer>().Shape = 'M';
                 }
             }
         }
@@ -152,10 +165,14 @@ class Engine
         //    gameObjects[i].Render();
         //}
         Console.Clear();
-        //foreach(GameObject gameObject in gameObjects) 
-        //{
-        //    gameObject.Render();
-        //}
+        foreach (GameObject gameObject in gameObjects)
+        {
+            Renderer? renderer = gameObject.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.Render();
+            }
+        }
     }
 
 }
