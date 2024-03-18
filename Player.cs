@@ -49,7 +49,7 @@ class Player : GameObject
         if(Input.GetButton("Quit"))
         {
             //singleton pattern
-            //engine.Stop();
+            Engine.GetInstance().Stop();
         }
 
         x = Math.Clamp(x, 0, 80);

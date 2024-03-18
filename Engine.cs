@@ -2,7 +2,7 @@
 
 class Engine
 {
-    public Engine()
+    protected Engine()
     {
         gameObjects = new List<GameObject>();
         isRunning = true;
@@ -13,6 +13,19 @@ class Engine
 
     }
 
+    public static Engine? instance;
+
+    public static Engine GetInstance()
+    {
+        if ( instance == null)
+        {
+            instance = new Engine();
+        }
+
+        return instance;
+        //return instance ?? (instance = new Engine());
+    }
+
     public List<GameObject> gameObjects;
     public bool isRunning;
     
@@ -20,6 +33,11 @@ class Engine
     public void Init()
     {
         Input.Init();
+    }
+
+    public void Stop()
+    {
+        isRunning = false;
     }
 
     public void LoadScene(string sceneName)
