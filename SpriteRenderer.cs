@@ -8,8 +8,11 @@
 
     public override void Render()
     {
-        Console.SetCursorPosition(transform.x, transform.y);
-        Console.Write(Shape);
+        if (transform != null)
+        {
+            Console.SetCursorPosition(transform.x, transform.y);
+            Console.Write(Shape);
+        }
     }
 }
 

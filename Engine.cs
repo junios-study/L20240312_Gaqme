@@ -43,7 +43,9 @@ class Engine
     public void LoadScene(string sceneName)
     {
 #if DEBUG
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         string Dir = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         string[] map = File.ReadAllLines(Dir + "/data/" + sceneName);
 #else
         string Dir = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
@@ -62,8 +64,8 @@ class Engine
                     newGameObject.name = "Wall";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
-                    newGameObject.AddComponent<SpriteRenderer>();
-                    newGameObject.GetComponent<SpriteRenderer>().Shape = '*';
+                    SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.Shape = '*';
                 }
                 else if (map[y][x] == ' ')
                 {
@@ -71,8 +73,8 @@ class Engine
                     newGameObject.name = "Floor";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
-                    newGameObject.AddComponent<SpriteRenderer>();
-                    newGameObject.GetComponent<SpriteRenderer>().Shape = ' ';
+                    SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.Shape = ' ';
                 }
                 else if (map[y][x] == 'P')
                 {
@@ -80,8 +82,8 @@ class Engine
                     newGameObject.name = "Player";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
-                    newGameObject.AddComponent<SpriteRenderer>();
-                    newGameObject.GetComponent<SpriteRenderer>().Shape = 'P';
+                    SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.Shape = 'P';
                 }
                 else if (map[y][x] == 'G')
                 {
@@ -89,8 +91,8 @@ class Engine
                     newGameObject.name = "Goal";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
-                    newGameObject.AddComponent<SpriteRenderer>();
-                    newGameObject.GetComponent<SpriteRenderer>().Shape = 'G';
+                    SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.Shape = 'G';
                 }
                 else if (map[y][x] == 'M')
                 {
@@ -98,8 +100,8 @@ class Engine
                     newGameObject.name = "Monster";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
-                    newGameObject.AddComponent<SpriteRenderer>();
-                    newGameObject.GetComponent<SpriteRenderer>().Shape = 'M';
+                    SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.Shape = 'M';
                 }
             }
         }
@@ -152,10 +154,13 @@ class Engine
 
     protected void Update()
     {
-        //foreach (GameObject gameObject in gameObjects)
-        //{
-        //    gameObject.Update();
-        //}
+        foreach (GameObject gameObject in gameObjects)
+        {
+            foreach(Component component in  gameObject.components)
+            {
+                component.Update();
+            }
+        }
     }
 
     protected void Render()
