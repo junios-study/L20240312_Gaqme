@@ -60,67 +60,115 @@ class Engine
             {
                 if (map[y][x] == '*')
                 {
-                    GameObject newGameObject = Instantiate(new GameObject());
+                    GameObject newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Wall";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = '*';
+                    renderer.renderOrder = RenderOder.Wall;
+
+                    newGameObject = Instantiate<GameObject>();
+                    newGameObject.name = "Floor";
+                    newGameObject.transform.x = x;
+                    newGameObject.transform.y = y;
+                    renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.Shape = ' ';
+                    renderer.renderOrder = RenderOder.Floor;
 
                 }
                 else if (map[y][x] == ' ')
                 {
-                    GameObject newGameObject = Instantiate(new GameObject());
+                    GameObject newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Floor";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
-                    //SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
-                    //renderer.Shape = ' ';
+                    SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.Shape = ' ';
+                    renderer.renderOrder = RenderOder.Floor;
 
                 }
                 else if (map[y][x] == 'P')
                 {
-                    GameObject newGameObject = Instantiate(new GameObject());
+                    GameObject newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Player";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = 'P';
+                    renderer.renderOrder = RenderOder.Player;
+                    newGameObject.AddComponent<PlayerController>();
+
+                    newGameObject = Instantiate<GameObject>();
+                    newGameObject.name = "Floor";
+                    newGameObject.transform.x = x;
+                    newGameObject.transform.y = y;
+                    renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.Shape = ' ';
+                    renderer.renderOrder = RenderOder.Floor;
                 }
                 else if (map[y][x] == 'G')
                 {
-                    GameObject newGameObject = Instantiate(new GameObject());
+                    GameObject newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Goal";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.renderOrder = RenderOder.Goal;
                     renderer.Shape = 'G';
+
+                    newGameObject = Instantiate<GameObject>();
+                    newGameObject.name = "Floor";
+                    newGameObject.transform.x = x;
+                    newGameObject.transform.y = y;
+                    renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.Shape = ' ';
+                    renderer.renderOrder = RenderOder.Floor;
 
                 }
                 else if (map[y][x] == 'M')
                 {
-                    GameObject newGameObject = Instantiate(new GameObject());
+                    GameObject newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Monster";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.renderOrder = RenderOder.Monster;
                     renderer.Shape = 'M';
+
+                    newGameObject = Instantiate<GameObject>();
+                    newGameObject.name = "Floor";
+                    newGameObject.transform.x = x;
+                    newGameObject.transform.y = y;
+                    renderer = newGameObject.AddComponent<SpriteRenderer>();
+                    renderer.Shape = ' ';
+                    renderer.renderOrder = RenderOder.Floor;
                 }
             }
         }
 
-        //gameObjects.Sort();
+        RenderSort();
+    }
 
-        //int WallCount = 0;
-        //foreach (GameObject go in gameObjects)
-        //{
-        //    //reflection
-        //    if (go.GetType() == typeof(Player))
-        //    {
-        //        WallCount++;
-        //    }
-        //}
-        //Console.WriteLine(WallCount);
+    public void RenderSort()
+    {
+        for (int i = 0; i < gameObjects.Count; i++)
+        {
+            for (int j = i + 1; j < gameObjects.Count; j++)
+            {
+                SpriteRenderer? prevRender = gameObjects[i].GetComponent<SpriteRenderer>();
+                SpriteRenderer? nextRender = gameObjects[j].GetComponent<SpriteRenderer>();
+                if (prevRender != null && nextRender != null)
+                {
+                    if ((int)prevRender.renderOrder > (int)nextRender.renderOrder)
+                    {
+                        GameObject temp = gameObjects[i];
+                        gameObjects[i] = gameObjects[j];
+                        gameObjects[j] = temp;
+                    }
+                }
+            }
+        }
     }
 
     public void Run()
@@ -138,17 +186,20 @@ class Engine
         gameObjects.Clear();
     }
 
-    //public GameObject Instantiate<T>() where T : GameObject
-    //{
-    //    return new T();
-    //}
-
-    public GameObject Instantiate(GameObject newGameObject)
+    public T Instantiate<T>() where T : GameObject, new()
     {
-        gameObjects.Add(newGameObject);
+        T newObject = new T();
+        gameObjects.Add( newObject );
 
-        return newGameObject;
+        return newObject;
     }
+
+    //public GameObject Instantiate(GameObject newGameObject)
+    //{
+    //    gameObjects.Add(newGameObject);
+
+    //    return newGameObject;
+    //}
 
     protected void ProcessInput()
     {

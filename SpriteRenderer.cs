@@ -1,10 +1,22 @@
-﻿class SpriteRenderer : Renderer
+﻿public enum RenderOder
+{
+    None = 0,
+    Floor = 100,
+    Wall = 200,
+    Goal = 300,
+    Player = 400,
+    Monster = 500,
+}
+
+class SpriteRenderer : Renderer
 {
     public SpriteRenderer()
     {
+        renderOrder = RenderOder.None;
     }
 
     public char Shape;
+    public RenderOder renderOrder;
 
     public override void Render()
     {
