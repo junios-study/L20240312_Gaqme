@@ -67,6 +67,7 @@ class Engine
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = '*';
                     renderer.renderOrder = RenderOder.Wall;
+                    newGameObject.AddComponent<Collider2D>();
 
                     newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Floor";
@@ -98,6 +99,7 @@ class Engine
                     renderer.Shape = 'P';
                     renderer.renderOrder = RenderOder.Player;
                     newGameObject.AddComponent<PlayerController>();
+                    newGameObject.AddComponent<Collider2D>();
 
                     newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Floor";
