@@ -17,7 +17,7 @@ class Engine
 
     public static Engine GetInstance()
     {
-        if ( instance == null)
+        if (instance == null)
         {
             instance = new Engine();
         }
@@ -28,7 +28,16 @@ class Engine
 
     public List<GameObject> gameObjects;
     public bool isRunning;
-    
+
+    public bool isNextLoading = false;
+    public string nextSceneName = string.Empty;
+
+    public void NextLoadScene(string _nextSceneName)
+    {
+        isNextLoading = true;
+        nextSceneName = _nextSceneName;
+    }
+
 
     public void Init()
     {
@@ -54,13 +63,14 @@ class Engine
 
         //string[] map = File.ReadAllLines("./data/"+sceneName);
 
+        GameObject newGameObject;
         for (int y = 0; y < map.Length; ++y)
         {
             for (int x = 0; x < map[y].Length; ++x)
             {
                 if (map[y][x] == '*')
                 {
-                    GameObject newGameObject = Instantiate<GameObject>();
+                    newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Wall";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
@@ -80,7 +90,7 @@ class Engine
                 }
                 else if (map[y][x] == ' ')
                 {
-                    GameObject newGameObject = Instantiate<GameObject>();
+                    newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Floor";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
@@ -91,7 +101,7 @@ class Engine
                 }
                 else if (map[y][x] == 'P')
                 {
-                    GameObject newGameObject = Instantiate<GameObject>();
+                    newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Player";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
@@ -99,7 +109,8 @@ class Engine
                     renderer.Shape = 'P';
                     renderer.renderOrder = RenderOder.Player;
                     newGameObject.AddComponent<PlayerController>();
-                    newGameObject.AddComponent<Collider2D>();
+                    Collider2D collider2D = newGameObject.AddComponent<Collider2D>();
+                    collider2D.isTrigger = true;
 
                     newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Floor";
@@ -111,13 +122,15 @@ class Engine
                 }
                 else if (map[y][x] == 'G')
                 {
-                    GameObject newGameObject = Instantiate<GameObject>();
+                    newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Goal";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.renderOrder = RenderOder.Goal;
                     renderer.Shape = 'G';
+                    Collider2D collider2D = newGameObject.AddComponent<Collider2D>();
+                    collider2D.isTrigger = true;
 
                     newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Floor";
@@ -130,13 +143,15 @@ class Engine
                 }
                 else if (map[y][x] == 'M')
                 {
-                    GameObject newGameObject = Instantiate<GameObject>();
+                    newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Monster";
                     newGameObject.transform.x = x;
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.renderOrder = RenderOder.Monster;
                     renderer.Shape = 'M';
+                    Collider2D collider2D = newGameObject.AddComponent<Collider2D>();
+                    collider2D.isTrigger = true;
 
                     newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Floor";
@@ -148,6 +163,11 @@ class Engine
                 }
             }
         }
+
+        newGameObject = Instantiate<GameObject>();
+        newGameObject.name = "GameManager";
+        newGameObject.AddComponent<GameManager>();
+
 
         RenderSort();
     }
@@ -180,6 +200,13 @@ class Engine
             ProcessInput();
             Update();
             Render();
+            if (isNextLoading)
+            {
+                gameObjects.Clear();
+                LoadScene(nextSceneName);
+                isNextLoading = false;
+                nextSceneName = string.Empty;
+            }
         } //frame
     }
 
@@ -191,7 +218,7 @@ class Engine
     public T Instantiate<T>() where T : GameObject, new()
     {
         T newObject = new T();
-        gameObjects.Add( newObject );
+        gameObjects.Add(newObject);
 
         return newObject;
     }
@@ -212,7 +239,7 @@ class Engine
     {
         foreach (GameObject gameObject in gameObjects)
         {
-            foreach(Component component in  gameObject.components)
+            foreach (Component component in gameObject.components)
             {
                 component.Update();
             }
@@ -234,6 +261,19 @@ class Engine
                 renderer.Render();
             }
         }
+    }
+
+    public GameObject? Find(string name)
+    {
+        foreach (GameObject gameObject in gameObjects)
+        {
+            if (gameObject.name == name)
+            {
+                return gameObject;
+            }
+        }
+
+        return null;
     }
 
 }

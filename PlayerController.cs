@@ -51,9 +51,29 @@ class PlayerController : Component
                     //충돌
                     transform.x = oldX;
                     transform.y = oldY;
+                    //OnCollide(GameObject other);
                     break;
                 }
+                if (findComponent.Check(gameObject) && findComponent.isTrigger == true)
+                {
+                    OnTrigger(findGameObject);
+                }
             }
+        }
+    }
+
+    public void OnTrigger(GameObject other)
+    {
+        //겹쳤을때 처리 할 로직
+        if (other.name == "Monster")
+        {
+            Engine.GetInstance().Find("GameManager").GetComponent<GameManager>().isGameOver = true;
+            //GameOver
+        }
+        else if (other.name == "Goal")
+        {
+            Engine.GetInstance().Find("GameManager").GetComponent<GameManager>().isNextStage = true;
+            //다음판 
         }
     }
 }
