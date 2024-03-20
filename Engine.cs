@@ -132,6 +132,7 @@ class Engine
                     Collider2D collider2D = newGameObject.AddComponent<Collider2D>();
                     collider2D.isTrigger = true;
 
+
                     newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Floor";
                     newGameObject.transform.x = x;
@@ -152,6 +153,7 @@ class Engine
                     renderer.Shape = 'M';
                     Collider2D collider2D = newGameObject.AddComponent<Collider2D>();
                     collider2D.isTrigger = true;
+                    newGameObject.AddComponent<AIController>();
 
                     newGameObject = Instantiate<GameObject>();
                     newGameObject.name = "Floor";
