@@ -101,6 +101,7 @@ class Engine
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = '*';
+                    renderer.Load("wall.bmp");
                     renderer.renderOrder = RenderOder.Wall;
                     newGameObject.AddComponent<Collider2D>();
 
@@ -110,6 +111,8 @@ class Engine
                     newGameObject.transform.y = y;
                     renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = ' ';
+                    renderer.Load("floor.bmp");
+
                     renderer.renderOrder = RenderOder.Floor;
 
                 }
@@ -121,6 +124,8 @@ class Engine
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = ' ';
+                    renderer.Load("wall.bmp");
+
                     renderer.renderOrder = RenderOder.Floor;
 
                 }
@@ -132,6 +137,8 @@ class Engine
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = 'P';
+                    renderer.Load("test.bmp");
+
                     renderer.renderOrder = RenderOder.Player;
                     newGameObject.AddComponent<PlayerController>();
                     Collider2D collider2D = newGameObject.AddComponent<Collider2D>();
@@ -143,6 +150,8 @@ class Engine
                     newGameObject.transform.y = y;
                     renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = ' ';
+                    renderer.Load("floor.bmp");
+
                     renderer.renderOrder = RenderOder.Floor;
                 }
                 else if (map[y][x] == 'G')
@@ -154,6 +163,8 @@ class Engine
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.renderOrder = RenderOder.Goal;
                     renderer.Shape = 'G';
+                    renderer.Load("coin.bmp");
+
                     Collider2D collider2D = newGameObject.AddComponent<Collider2D>();
                     collider2D.isTrigger = true;
 
@@ -164,6 +175,8 @@ class Engine
                     newGameObject.transform.y = y;
                     renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = ' ';
+                    renderer.Load("floor.bmp");
+
                     renderer.renderOrder = RenderOder.Floor;
 
                 }
@@ -176,6 +189,8 @@ class Engine
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.renderOrder = RenderOder.Monster;
                     renderer.Shape = 'M';
+                    renderer.Load("slime.bmp");
+
                     Collider2D collider2D = newGameObject.AddComponent<Collider2D>();
                     collider2D.isTrigger = true;
                     newGameObject.AddComponent<AIController>();
@@ -186,6 +201,8 @@ class Engine
                     newGameObject.transform.y = y;
                     renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = ' ';
+                    renderer.Load("floor.bmp");
+
                     renderer.renderOrder = RenderOder.Floor;
                 }
             }

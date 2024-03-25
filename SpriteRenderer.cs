@@ -12,9 +12,19 @@ public enum RenderOder
 
 class SpriteRenderer : Renderer
 {
+
+    public string textureName;
+
     public SpriteRenderer()
     {
         renderOrder = RenderOder.None;
+        textureName = "";
+    }
+    public void Load(string _textureName)
+    {
+        textureName = _textureName;
+
+        ResourceManager.Load(textureName);
     }
 
     public char Shape;
@@ -29,33 +39,30 @@ class SpriteRenderer : Renderer
 
             Engine myEngine = Engine.GetInstance();
 
-            SDL.SDL_Rect myRect = new SDL.SDL_Rect();
-            myRect.x = transform.x * 30;
-            myRect.y = transform.y * 30;
-            myRect.w = 30;
-            myRect.h = 30;
+            SDL.SDL_Rect destRect = new SDL.SDL_Rect();
+            destRect.x = transform.x * 30;
+            destRect.y = transform.y * 30;
+            destRect.w = 30;
+            destRect.h = 30;
 
-            if (renderOrder == RenderOder.Floor)
-            {
-                SDL.SDL_SetRenderDrawColor(myEngine.myRenderer, 0, 255, 0, 0);
-            }
-            else if (renderOrder == RenderOder.Wall)
-            {
-                SDL.SDL_SetRenderDrawColor(myEngine.myRenderer, 255, 255, 0, 0);
-            }
-            else if (renderOrder == RenderOder.Player)
-            {
-                SDL.SDL_SetRenderDrawColor(myEngine.myRenderer, 0, 0, 255, 0);
-            }
-            else if (renderOrder == RenderOder.Monster)
-            {
-                SDL.SDL_SetRenderDrawColor(myEngine.myRenderer, 255, 0, 255, 0);
-            }
-            else if (renderOrder == RenderOder.Goal)
-            {
-                SDL.SDL_SetRenderDrawColor(myEngine.myRenderer, 255, 255, 255, 0);
-            }
-            SDL.SDL_RenderFillRect(myEngine.myRenderer, ref myRect);
+            //unsafe //C, C++
+            //{
+                SDL.SDL_Rect rect = new SDL.SDL_Rect();
+                rect.x = 0;
+                rect.y = 0;
+                uint format = 0;
+                int access = 0;
+                SDL.SDL_QueryTexture(ResourceManager.Load(textureName),
+                    out format,
+                    out access,
+                    out rect.w,
+                    out rect.h);
+
+                SDL.SDL_RenderCopy(myEngine.myRenderer,
+                    ResourceManager.Load(textureName),
+                    ref rect,
+                    ref destRect);
+            //}
         }
     }
 }
