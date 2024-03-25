@@ -10,7 +10,7 @@ class ResourceManager
         {
             string Dir = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
 
-            IntPtr mySurface = SDL.SDL_LoadBMP(Dir + "/data/" + "floor.bmp");
+            IntPtr mySurface = SDL.SDL_LoadBMP(Dir + "/data/" + _filename);
             IntPtr myTexture = SDL.SDL_CreateTextureFromSurface(Engine.GetInstance().myRenderer, mySurface);
 
             Database[_filename] = myTexture;

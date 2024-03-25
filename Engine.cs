@@ -124,7 +124,7 @@ class Engine
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = ' ';
-                    renderer.Load("wall.bmp");
+                    renderer.Load("floor.bmp");
 
                     renderer.renderOrder = RenderOder.Floor;
 
