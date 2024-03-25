@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using SDL2;
+using System.Data;
 
 class Engine
 {
@@ -32,6 +33,10 @@ class Engine
     public bool isNextLoading = false;
     public string nextSceneName = string.Empty;
 
+    public IntPtr myWindow;
+    public IntPtr myRenderer;
+    public SDL.SDL_Event myEvent;
+
     public void NextLoadScene(string _nextSceneName)
     {
         isNextLoading = true;
@@ -41,6 +46,20 @@ class Engine
 
     public void Init()
     {
+        if (SDL.SDL_Init(SDL.SDL_INIT_EVERYTHING) < 0)
+        {
+            Console.WriteLine("Init fail.");
+            return;
+        }
+
+        myWindow = SDL.SDL_CreateWindow("2D Engine", 100, 100, 640, 480, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);
+
+        myRenderer = SDL.SDL_CreateRenderer(myWindow, -1,
+            SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED |
+            SDL.SDL_RendererFlags.SDL_RENDERER_PRESENTVSYNC |
+            SDL.SDL_RendererFlags.SDL_RENDERER_TARGETTEXTURE);
+
+
         Input.Init();
     }
 
@@ -215,6 +234,10 @@ class Engine
     public void Term()
     {
         gameObjects.Clear();
+
+        SDL.SDL_DestroyRenderer(myRenderer);
+        SDL.SDL_DestroyWindow(myWindow);
+        SDL.SDL_Quit();
     }
 
     public T Instantiate<T>() where T : GameObject, new()
@@ -234,7 +257,8 @@ class Engine
 
     protected void ProcessInput()
     {
-        Input.keyInfo = Console.ReadKey();
+        SDL.SDL_PollEvent(out myEvent);
+//        Input.keyInfo = Console.ReadKey();
     }
 
     protected void Update()
