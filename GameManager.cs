@@ -3,19 +3,28 @@
     public bool isGameOver;
     public bool isNextStage;
 
+    protected Timer gameOverTimer;
+
     public GameManager()
     {
         isGameOver = false;
         isNextStage = false;
+        gameOverTimer = new Timer(3000, ProcessGameOver);
+
+    }
+
+    public void ProcessGameOver()
+    {
+        Engine.GetInstance().Stop();
+        Console.Clear();
+        Console.WriteLine("GameOver");
     }
 
     public override void Update()
     {
         if (isGameOver)
         {
-            Engine.GetInstance().Stop();
-            Console.Clear();
-            Console.WriteLine("GameOver");
+            gameOverTimer.Update();
         }
 
         if (isNextStage)

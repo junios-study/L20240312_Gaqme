@@ -4,6 +4,12 @@ using static SDL2.SDL;
 
 class PlayerController : Component
 {
+    public SpriteRenderer spriteRenderer;
+    public override void Start()
+    {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+    }
+
     public override void Update()
     {
         int oldX = transform.x;
@@ -12,18 +18,22 @@ class PlayerController : Component
         if (Input.GetKey(SDL.SDL_Keycode.SDLK_a))
         {
             transform.Translate(-1, 0);
+            spriteRenderer.currentIndexY = 0;
         }
         if (Input.GetKey(SDL.SDL_Keycode.SDLK_d))
         {
             transform.Translate(1, 0);
+            spriteRenderer.currentIndexY = 1;
         }
         if (Input.GetKey(SDL.SDL_Keycode.SDLK_w))
         {
             transform.Translate(0, -1);
+            spriteRenderer.currentIndexY = 2;
         }
         if (Input.GetKey(SDL.SDL_Keycode.SDLK_s))
         {
             transform.Translate(0, +1);
+            spriteRenderer.currentIndexY = 3;
         }
         if (Input.GetKey(SDL.SDL_Keycode.SDLK_ESCAPE))
         {

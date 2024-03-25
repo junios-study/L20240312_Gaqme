@@ -26,6 +26,8 @@ class SpriteRenderer : Renderer
 
     public ulong executeTime = 250;
 
+    public int currentIndexY = 0;
+
 
     public SpriteRenderer()
     {
@@ -93,7 +95,7 @@ class SpriteRenderer : Renderer
                 int spriteHeight = rect.h / spriteCount;
 
                 rect.x = spriteWidth * currentIndex;
-                rect.y = 0;
+                rect.y = spriteHeight * currentIndexY;
                 rect.w = spriteWidth;
                 rect.h = spriteHeight;
             }

@@ -242,9 +242,15 @@ class Engine
 
     public void Run()
     {
+        bool isFirst = true;
+        //Awake();
         while (isRunning)
         {
-
+            if (isFirst)
+            {
+                StartInAllComponents();
+                isFirst = false;
+            }
             ProcessInput();
             Update();
             Render();
@@ -258,6 +264,18 @@ class Engine
 
         } //frame
     }
+
+    protected void StartInAllComponents()
+    {
+        foreach (GameObject gameObject in gameObjects)
+        {
+            foreach (Component component in gameObject.components)
+            {
+                component.Start();
+            }
+        }
+    }
+
 
     public void Term()
     {
