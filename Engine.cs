@@ -37,6 +37,10 @@ class Engine
     public IntPtr myRenderer;
     public SDL.SDL_Event myEvent;
 
+    public ulong deltaTime;
+    protected ulong lastTime;
+
+
     public void NextLoadScene(string _nextSceneName)
     {
         isNextLoading = true;
@@ -61,6 +65,8 @@ class Engine
 
 
         Input.Init();
+
+        lastTime = SDL.SDL_GetTicks64();
     }
 
     public void Stop()
@@ -218,6 +224,7 @@ class Engine
     {
         while (isRunning)
         {
+
             ProcessInput();
             Update();
             Render();
@@ -228,6 +235,7 @@ class Engine
                 isNextLoading = false;
                 nextSceneName = string.Empty;
             }
+
         } //frame
     }
 
@@ -263,6 +271,8 @@ class Engine
 
     protected void Update()
     {
+        deltaTime = SDL.SDL_GetTicks64() - lastTime;
+        //Console.WriteLine(deltaTime);
         foreach (GameObject gameObject in gameObjects)
         {
             foreach (Component component in gameObject.components)
@@ -270,6 +280,7 @@ class Engine
                 component.Update();
             }
         }
+        lastTime = SDL.SDL_GetTicks64();
     }
 
     protected void Render()
@@ -278,7 +289,7 @@ class Engine
         //{
         //    gameObjects[i].Render();
         //}
-        Console.Clear();
+        //Console.Clear();
         foreach (GameObject gameObject in gameObjects)
         {
             Renderer? renderer = gameObject.GetComponent<Renderer>();
@@ -287,6 +298,8 @@ class Engine
                 renderer.Render();
             }
         }
+
+        SDL.SDL_RenderPresent(Engine.GetInstance().myRenderer);
     }
 
     public GameObject? Find(string name)

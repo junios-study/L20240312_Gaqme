@@ -1,4 +1,5 @@
-﻿
+﻿using SDL2;
+
 class Input
 {
     public Input()
@@ -37,9 +38,13 @@ class Input
 
     public static ConsoleKeyInfo keyInfo;
 
-    public static bool GetKey(ConsoleKey checkKeyCode)
+    public static bool GetKey(ConsoleKey checkKeycode)
     {
-        return (keyInfo.Key == checkKeyCode);
+        return (keyInfo.Key == checkKeycode);
+    }
+    public static bool GetKey(SDL.SDL_Keycode checkKeycode)
+    {
+        return (Engine.GetInstance().myEvent.key.keysym.sym == checkKeycode);
     }
 
     public static bool GetButton(string buttonName)

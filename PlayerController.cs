@@ -1,4 +1,7 @@
 ﻿
+using SDL2;
+using static SDL2.SDL;
+
 class PlayerController : Component
 {
     public override void Update()
@@ -6,23 +9,23 @@ class PlayerController : Component
         int oldX = transform.x;
         int oldY = transform.y;
 
-        if (Input.GetButton("Left"))
+        if (Input.GetKey(SDL.SDL_Keycode.SDLK_a))
         {
             transform.Translate(-1, 0);
         }
-        if (Input.GetButton("Right"))
+        if (Input.GetKey(SDL.SDL_Keycode.SDLK_d))
         {
             transform.Translate(1, 0);
         }
-        if (Input.GetButton("Up"))
+        if (Input.GetKey(SDL.SDL_Keycode.SDLK_w))
         {
             transform.Translate(0, -1);
         }
-        if (Input.GetButton("Down"))
+        if (Input.GetKey(SDL.SDL_Keycode.SDLK_s))
         {
             transform.Translate(0, +1);
         }
-        if (Input.GetButton("Quit"))
+        if (Input.GetKey(SDL.SDL_Keycode.SDLK_ESCAPE))
         {
             //singleton pattern
             Engine.GetInstance().Stop();
