@@ -137,7 +137,10 @@ class Engine
                     newGameObject.transform.y = y;
                     SpriteRenderer renderer = newGameObject.AddComponent<SpriteRenderer>();
                     renderer.Shape = 'P';
+                    renderer.colorKey.g = 0;
                     renderer.Load("test.bmp");
+                    renderer.isMultiple = true;
+                    renderer.spriteCount = 5;
 
                     renderer.renderOrder = RenderOder.Player;
                     newGameObject.AddComponent<PlayerController>();
