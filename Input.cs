@@ -47,9 +47,26 @@ class Input
         return (Engine.GetInstance().myEvent.key.keysym.sym == checkKeycode);
     }
 
+    public static bool GetKeyDown(SDL.SDL_Keycode checkKeycode)
+    {
+        return (Engine.GetInstance().myEvent.key.keysym.sym == checkKeycode &&
+            Engine.GetInstance().myEvent.type == SDL.SDL_EventType.SDL_KEYDOWN);
+    }
+
+    public static bool GetKeyUp(SDL.SDL_Keycode checkKeycode)
+    {
+        return (Engine.GetInstance().myEvent.key.keysym.sym == checkKeycode &&
+            Engine.GetInstance().myEvent.type == SDL.SDL_EventType.SDL_KEYUP);
+    }
+
     public static bool GetButton(string buttonName)
     {
         return (InputMapping[buttonName].button == keyInfo.Key 
             || InputMapping[buttonName].altButton == keyInfo.Key);
     }
+
+    //여러키 동시 입력
+    //int key = 0;
+    //IntPtr keyState = SDL.SDL_GetKeyboardState(out key);
+    //keyState[SDL.SDL_Keycode.SDLK_1] && keyState[SDL.SDL_Keycode.SDLK_2]
 }

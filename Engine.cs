@@ -246,6 +246,13 @@ class Engine
         //Awake();
         while (isRunning)
         {
+
+
+            if (Engine.GetInstance().myEvent.type == SDL.SDL_EventType.SDL_QUIT)
+            {
+                Stop();
+                break;
+            }
             if (isFirst)
             {
                 StartInAllComponents();

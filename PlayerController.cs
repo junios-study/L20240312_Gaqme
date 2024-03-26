@@ -15,27 +15,27 @@ class PlayerController : Component
         int oldX = transform.x;
         int oldY = transform.y;
 
-        if (Input.GetKey(SDL.SDL_Keycode.SDLK_a))
+        if (Input.GetKeyDown(SDL.SDL_Keycode.SDLK_a))
         {
             transform.Translate(-1, 0);
             spriteRenderer.currentIndexY = 0;
         }
-        if (Input.GetKey(SDL.SDL_Keycode.SDLK_d))
+        if (Input.GetKeyDown(SDL.SDL_Keycode.SDLK_d))
         {
             transform.Translate(1, 0);
             spriteRenderer.currentIndexY = 1;
         }
-        if (Input.GetKey(SDL.SDL_Keycode.SDLK_w))
+        if (Input.GetKeyDown(SDL.SDL_Keycode.SDLK_w))
         {
             transform.Translate(0, -1);
             spriteRenderer.currentIndexY = 2;
         }
-        if (Input.GetKey(SDL.SDL_Keycode.SDLK_s))
+        if (Input.GetKeyDown(SDL.SDL_Keycode.SDLK_s))
         {
             transform.Translate(0, +1);
             spriteRenderer.currentIndexY = 3;
         }
-        if (Input.GetKey(SDL.SDL_Keycode.SDLK_ESCAPE))
+        if (Input.GetKeyDown(SDL.SDL_Keycode.SDLK_ESCAPE))
         {
             //singleton pattern
             Engine.GetInstance().Stop();
